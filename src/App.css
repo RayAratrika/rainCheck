@@ -1,0 +1,44 @@
+.weathers{
+    display: flex;
+    justify-content: space-evenly;    
+    width: 90%;
+    margin: 4% auto;
+}
+
+.topCard{
+    margin: auto;
+    padding: 1px 4% 3%;
+    font-size: 18px;
+    font-family: 'Montserrat';
+    width: 20%;
+    font-weight: bold;
+}
+
+.topCard p{
+    margin-bottom: -5.5%;
+}
+
+@media screen and (max-width: 770px){
+    .weathers{
+        display: grid;
+        grid-template-columns: auto auto;
+        width: 100%;
+        margin: 8% 0 0 0;
+    }
+
+    .night .topCard{
+        width: 45%;
+        margin-left: 42%;
+        margin-top: 8%;
+    }
+
+    .day .topCard{
+        width: 45%;
+        margin-left: 8%;
+        margin-top: 8%;
+    }
+
+    .topCard p{
+        margin-bottom: -8%;
+    }
+}

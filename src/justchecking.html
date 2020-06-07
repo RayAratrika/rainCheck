@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<head>
+    <title>just checking</title>
+</head>
+
+<body>
+    weather app
+    <br>
+        CITY: <input type='text' name='city' id='city'>
+        COUNTRY: <input type='text' name='country' id='country'>
+        <button onclick=getVal()>GET</button>
+
+    <script>
+        function getVal() {
+            const api = 'b1ed46552dc89999f5a3e717d5316c4f';
+            const xhttps = new XMLHttpRequest();
+            xhttps.open('GET', 'https://api.openweathermap.org/data/2.5/forecast?id=1277333&units=metric&appid=' + api, true);
+            xhttps.onreadystatechange = function () {
+                const data = JSON.parse(this.responseText);
+                for (var i = 0; i < 5; i++) {
+                    var datetime = (data.list[i].dt_txt).split(" ");
+
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'weather');
+                    div.style.width = 'fit-content';
+                    div.style.border = '1px solid black';
+                    div.style.margin = '4%';
+                    div.style.paddingLeft = '4%';
+                    div.style.paddingRight = '4%';
+
+                    var city = document.createElement('p');
+                    city.innerText = data.city.name;
+                    div.appendChild(city);
+
+                    var date = document.createElement('p');
+                    date.innerText = datetime[0];
+                    div.appendChild(date);
+
+                    var time = document.createElement('p');
+                    time.innerText = datetime[1]
+                    div.appendChild(time);
+
+                    var feels_like = document.createElement('p');
+                    feels_like.innerText = data.list[i].main.feels_like + ' C';
+                    div.appendChild(feels_like);
+
+                    var temp = document.createElement('p');
+                    temp.innerText = data.list[i].main.temp + ' C'
+                    div.appendChild(temp);
+
+                    var rain_type = document.createElement('p');
+                    rain_type.innerText = data.list[i].weather[0].description;
+                    div.appendChild(rain_type);
+
+                    document.body.appendChild(div);
+                };
+                console.log(data);
+            };
+            xhttps.send();
+        };
+
+    </script>
+
+</body>

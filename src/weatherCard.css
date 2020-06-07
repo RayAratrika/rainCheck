@@ -1,0 +1,26 @@
+.card{
+    margin: 4% auto;
+    text-align: left;
+    padding: 1px 2% 3%;
+    font-size: 16px;
+    font-family: 'Montserrat';
+    width: 17%;
+}
+.card p{
+    margin-bottom: -7%;
+
+}
+
+@media screen and (max-width: 770px){
+    .card{
+        margin: 12% auto;
+        text-align: left;
+        font-size: 14px;
+        font-family: 'Montserrat';
+        width: 120%;
+    }
+    .card p{
+        margin-bottom: -7%;
+    
+    }
+}
