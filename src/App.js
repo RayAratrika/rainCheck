@@ -82,7 +82,7 @@ class App extends React.Component {
 
     render() {
         if (this.state.res.length === 0) return null;
-        const hours = new Date().getHours();
+        const hours = new Date('2020-06-08 09:00:00').getHours();
         const name = (hours < new Date(this.state.res.city.sunrise * 1000).getHours()) ||
             (hours > new Date(this.state.res.city.sunset * 1000).getHours()) ? 'night' : 'day';
         console.log(hours > new Date(this.state.res.city.sunset * 1000).getHours());

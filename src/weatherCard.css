@@ -15,9 +15,9 @@
     .card{
         margin: 12% auto;
         text-align: left;
-        font-size: 14px;
+        font-size: 13px;
         font-family: 'Montserrat';
-        width: 120%;
+        width: 100%;
     }
     .card p{
         margin-bottom: -7%;

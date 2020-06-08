@@ -7,10 +7,10 @@
 
 .topCard{
     margin: auto;
-    padding: 1px 4% 3%;
-    font-size: 18px;
+    font-size: 20px;
     font-family: 'Montserrat';
     width: 20%;
+    letter-spacing: 1px;
     font-weight: bold;
 }
 
@@ -23,19 +23,19 @@
         display: grid;
         grid-template-columns: auto auto;
         width: 100%;
-        margin: 8% 0 0 0;
+        margin: 12% auto;
     }
 
     .night .topCard{
-        width: 45%;
-        margin-left: 42%;
-        margin-top: 8%;
+        width: 63%;
+        margin-left: 35%;
+        margin-top: 25%;
     }
 
     .day .topCard{
-        width: 50%;
-        margin-left: 8%;
-        margin-top: 8%;
+        width: 63%;
+        margin-left: 12%;
+        margin-top: 25%;
     }
 
     .topCard p{
