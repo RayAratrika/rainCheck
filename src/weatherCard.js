@@ -26,7 +26,7 @@ const WeatherCard = (props) => {
         if (new Date().getDate() === new Date(list.dt_txt).getDate()) tmrw = false;
         return(
             <div className='card'>
-                <WeatherDeatils data={list} time={list.dt_txt} tomorrow={tmrw}/>
+                <WeatherDeatils key={list.dt}data={list} time={list.dt_txt} tomorrow={tmrw}/>
             </div>
         );
     });

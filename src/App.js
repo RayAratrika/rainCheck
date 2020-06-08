@@ -85,7 +85,7 @@ class App extends React.Component {
         const hours = new Date().getHours();
         const name = (hours < new Date(this.state.res.city.sunrise * 1000).getHours()) ||
             (hours > new Date(this.state.res.city.sunset * 1000).getHours()) ? 'night' : 'day';
-        
+        console.log(hours > new Date(this.state.res.city.sunset * 1000).getHours());
             return (
             <div className={name}>
                 <div className='topCard'>
