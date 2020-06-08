@@ -20,7 +20,6 @@ const WeatherDeatils = (props) => {
 
 const WeatherCard = (props) => {
     var arrayList = props.response.list.slice(1, 5);
-    console.log(arrayList);
     return arrayList.map((list) => {
         var tmrw = (new Date().getDate() === new Date(list.dt_txt).getDate()) ? false:true;
         return (

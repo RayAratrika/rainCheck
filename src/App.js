@@ -77,7 +77,6 @@ class App extends React.Component {
         const res = await fetch('https://api.openweathermap.org/data/2.5/forecast?id=1277333&units=metric&appid=' + api);
         const data = await res.json();
         this.setState({ res: data });
-        console.log(data);
     }
 
     render() {
@@ -85,7 +84,6 @@ class App extends React.Component {
         const hours = new Date().getHours();
         const name = (hours < new Date(this.state.res.city.sunrise * 1000).getHours()) ||
             (hours > new Date(this.state.res.city.sunset * 1000).getHours()) ? 'night' : 'day';
-        console.log(hours > new Date(this.state.res.city.sunset * 1000).getHours());
             return (
             <div className={name}>
                 <div className='topCard'>
