@@ -17,6 +17,7 @@ const WeatherInfo = (props) => {
         if (hours <= convertToMinutes(data1.dt_txt.split(" ")[1])) {
             return (
                 <div>
+                    <p>In: {props.response.city.name}</p>
                     <p>{new Date().toLocaleTimeString().replace(/:\d+ /, ' ')}, {new Date().toLocaleDateString('es-CL')}</p>
                     <p>Temperature: {Math.floor((data0.main.temp + data1.main.temp) / 2)} °C</p>
                     <p>Min: {Math.floor((data0.main.temp_min + data1.main.temp_min) / 2)} °C</p>
@@ -29,6 +30,7 @@ const WeatherInfo = (props) => {
         if (hours >= convertToMinutes(data1.dt_txt.split(" ")[1]) + 105) {
             return (
                 <div>
+                    <p>In: {props.response.city.name}</p>
                     <p>{new Date().toLocaleTimeString().replace(/:\d+ /, ' ')}, {new Date().toLocaleDateString('es-CL')}</p>
                     <p>Temperature: {Math.floor((data1.main.temp + data2.main.temp) / 2)} °C</p>
                     <p>Min: {Math.floor((data1.main.temp_min + data2.main.temp_min) / 2)} °C</p>
@@ -41,6 +43,7 @@ const WeatherInfo = (props) => {
         if (hours >= convertToMinutes(data1.dt_txt.split(" ")[1])) {
             return (
                 <div>
+                    <p>In: {props.response.city.name}</p>
                     <p>{new Date().toLocaleTimeString().replace(/:\d+ /, ' ')}, {new Date().toLocaleDateString('es-CL')}</p>
                     <p>Temperature: {(data1.main.temp)} °C</p>
                     <p>Min: {(data1.main.temp_min)} °C</p>
@@ -51,9 +54,10 @@ const WeatherInfo = (props) => {
         }
 
     }
-    else if(hours < convertToMinutes(data0.dt_txt.split(" ")[1]) && (convertToMinutes(data0.dt_txt.split(" ")[1]) === 1260)) {
+    else if (hours < convertToMinutes(data0.dt_txt.split(" ")[1]) && (convertToMinutes(data0.dt_txt.split(" ")[1]) === 1260)) {
         return (
             <div>
+                <p>In: {props.response.city.name}</p>
                 <p>{new Date().toLocaleTimeString().replace(/:\d+ /, ' ')}, {new Date().toLocaleDateString('es-CL')}</p>
                 <p>Temperature: {(data1.main.temp)} °C</p>
                 <p>Min: {(data1.main.temp_min)} °C</p>
@@ -65,18 +69,42 @@ const WeatherInfo = (props) => {
     else return null;
 }
 
+var UserCoords = { lat: '', lon: '', data: '' };
+
+async function makeRequest() {
+    const api = 'b1ed46552dc89999f5a3e717d5316c4f';
+    const temp_res = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + 12.917857 + '&lon=' + 77.673211 + '&units=metric&appid=' + api);
+    const temp_data = await temp_res.json();
+    const res = await fetch('https://api.openweathermap.org/data/2.5/forecast?id=' + temp_data.id + '&units=metric&appid=' + api);
+    const data = await res.json();
+    return data;
+}
 
 class App extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            res: [],
+        }
+        this.showPosition = this.showPosition.bind(this);
 
-    state = {
-        res: []
     }
+    
+    async showPosition(position) {
+        UserCoords.lat = position.coords.latitude;
+        UserCoords.lon = position.coords.longitude;
+        this.setState({res: await makeRequest()}, () => console.log(this.state.res));
+    } 
 
     async componentDidMount() {
-        const api = 'b1ed46552dc89999f5a3e717d5316c4f';
-        const res = await fetch('https://api.openweathermap.org/data/2.5/forecast?id=1277333&units=metric&appid=' + api);
-        const data = await res.json();
-        this.setState({ res: data });
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.showPosition);
+
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+  
     }
 
     render() {
@@ -84,7 +112,7 @@ class App extends React.Component {
         const hours = new Date().getHours();
         const name = (hours < new Date(this.state.res.city.sunrise * 1000).getHours()) ||
             (hours > new Date(this.state.res.city.sunset * 1000).getHours()) ? 'night' : 'day';
-            return (
+        return (
             <div className={name}>
                 <div className='topCard'>
                     <WeatherInfo response={this.state.res} />
