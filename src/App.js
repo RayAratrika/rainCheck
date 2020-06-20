@@ -73,7 +73,7 @@ var UserCoords = { lat: '', lon: '', data: '' };
 
 async function makeRequest() {
     const api = 'b1ed46552dc89999f5a3e717d5316c4f';
-    const temp_res = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + 12.917857 + '&lon=' + 77.673211 + '&units=metric&appid=' + api);
+    const temp_res = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + UserCoords.lat + '&lon=' + UserCoords.lon + '&units=metric&appid=' + api);
     const temp_data = await temp_res.json();
     const res = await fetch('https://api.openweathermap.org/data/2.5/forecast?id=' + temp_data.id + '&units=metric&appid=' + api);
     const data = await res.json();
